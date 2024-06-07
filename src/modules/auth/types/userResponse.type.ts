@@ -1,3 +1,3 @@
 import { UserEntity } from "../schemas/user.entity";
 
-export type UserResponseType = Omit<UserEntity, 'password'>
+export type UserResponseType = Omit<UserEntity, 'password'> & {token: string}
