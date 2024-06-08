@@ -1,0 +1,23 @@
+### Create contact
+POST http://localhost:3000/contacts
+Content-Type: application/json
+
+{
+    "name": "Elisa",
+    "number": "+5521985015981",
+    "email": "elisadrmnd@gmail.com",
+    "dateOfBirth": "2001-07-23",
+    "image": "https://www.youtube.com/watch?v=dFFpjjD9cj4"
+}
+
+### Get all contacts
+GET http://localhost:3000/contacts
+
+### Get contact
+GET http://localhost:3000/contacts/1
+
+### Update contact
+PATCH http://localhost:3000/contacts/1
+
+### Delete contact
+DELETE http://localhost:3000/contacts/1
