@@ -13,8 +13,11 @@ Content-Type: application/json
 ### Get all contacts
 GET http://localhost:3000/contacts
 
-### Get contact
+### Get contact by ID
 GET http://localhost:3000/contacts/1
+
+### Get contact by name
+GET http://localhost:3000/contacts/name
 
 ### Update contact
 PATCH http://localhost:3000/contacts/1

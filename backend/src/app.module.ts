@@ -5,7 +5,7 @@ import { AuthMiddleware } from './modules/auth/middlewares/auth.middleware';
 import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
-  imports: [UserModule, MongooseModule.forRoot('mongodb://localhost/agenda'), ContactsModule],
+  imports: [UserModule, ContactsModule, MongooseModule.forRoot('mongodb://localhost/agenda')],
   controllers: [],
   providers: [],
 })
