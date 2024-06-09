@@ -4,10 +4,13 @@ import { UpdateContactDto } from './dtos/update-contact.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ContactEntity } from './schemas/contact.entity';
+import { S3Service } from '../s3/s3.service'
 
 @Injectable()
 export class ContactsService {
-  constructor(@InjectModel('Contact') private readonly contactModel: Model<ContactEntity>) {}
+    constructor(@InjectModel(ContactEntity.name) private readonly contactModel: Model<ContactEntity>,
+    private s3Service: S3Service
+  ) {}
 
   async create(createContactDto: CreateContactDto): Promise<ContactEntity> {
     const createdContact = new this.contactModel(createContactDto);
@@ -46,4 +49,14 @@ export class ContactsService {
     }
     return deletedContact;
   }
+
+  async addFileToContact(file: Express.Multer.File, id: string) {
+    const contact = await this.contactModel.findById(id).exec();
+
+    const key = `${file.fieldname}${Date.now()}`
+    const imageUrl = await this.s3Service.uploadFile(file, key)
+
+    await this.contactModel.findByIdAndUpdate({id}, {image: imageUrl})
+  }
+
 }

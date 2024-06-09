@@ -14,11 +14,11 @@ export class ContactEntity {
   @Prop({ required: true, unique: true })
   email: string;
 
-  @Prop({ required: true })
-  dateOfBirth: Date;
+  @Prop({ required: false })
+  dateOfBirth?: Date;
 
-  @Prop({ required: true })
-  image: string;
+  @Prop({ required: false })
+  image?: string;
 }
 
 export const ContactEntitySchema = SchemaFactory.createForClass(ContactEntity);

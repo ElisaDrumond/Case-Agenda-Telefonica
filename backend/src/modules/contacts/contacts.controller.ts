@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Request, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactDto } from './dtos/create-contact.dto';
 import { UpdateContactDto } from './dtos/update-contact.dto';
+import { Express } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('contacts')
 export class ContactsController {
@@ -35,5 +37,18 @@ export class ContactsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.contactsService.remove(id);
+  }
+
+  @UseInterceptors(FileInterceptor('file'))
+  @Post('/:id/upload-file')
+  async addImageToContact(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('id', new ParseUUIDPipe()) id: string, 
+    @Request() req,
+  ) {
+    console.log(file)
+
+    const { sub: email } = req;
+    await this.contactsService.addFileToContact(file, id)
   }
 }

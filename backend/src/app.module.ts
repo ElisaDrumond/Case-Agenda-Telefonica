@@ -2,10 +2,11 @@ import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { UserModule } from './modules/auth/user.module'
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthMiddleware } from './modules/auth/middlewares/auth.middleware';
-import { ContactsModule } from './contacts/contacts.module';
+import { ContactsModule } from './modules/contacts/contacts.module'
+import { S3Module } from './modules/s3/s3.module';
 
 @Module({
-  imports: [UserModule, ContactsModule, MongooseModule.forRoot('mongodb://localhost/agenda')],
+  imports: [UserModule, ContactsModule, MongooseModule.forRoot('mongodb://localhost/agenda'), S3Module],
   controllers: [],
   providers: [],
 })

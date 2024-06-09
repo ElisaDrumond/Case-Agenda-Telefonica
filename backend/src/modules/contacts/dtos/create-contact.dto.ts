@@ -15,8 +15,8 @@ export class CreateContactDto {
     email: string;
 
     @IsDateString()
-    dateOfBirth: string;
+    dateOfBirth?: string;
 
     @IsUrl()
-    image: string;
+    image?: string;
 }
