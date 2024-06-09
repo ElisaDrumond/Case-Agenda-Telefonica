@@ -1,4 +1,4 @@
-import { IsDateString, IsEmail, IsNotEmpty, IsPhoneNumber, IsString, IsUrl } from "class-validator";
+import { IsDateString, IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, IsUrl } from "class-validator";
 
 export class CreateContactDto {
     
@@ -14,9 +14,11 @@ export class CreateContactDto {
     @IsEmail()
     email: string;
 
+    @IsOptional()
     @IsDateString()
     dateOfBirth?: string;
 
+    @IsOptional()
     @IsUrl()
     image?: string;
 }
