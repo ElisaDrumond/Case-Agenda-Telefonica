@@ -1,12 +1,12 @@
 import { Card } from "@/components/card";
 import { InputPersonalInformation } from "@/components/input-personal-information";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import image from "../assets/images/image-2.jpg";
 import { useSession } from "@/shared/session-provider";
 import { SessionData } from "@/context/auth";
 import { Navigate } from "react-router-dom";
+import { api } from "@/lib/api";
 
 interface Input {
   username: string;
@@ -20,11 +20,16 @@ export function Register() {
 
   const registerSubmit: SubmitHandler<Input> = async (data) => {
     try {
-      const response = await axios.post<SessionData>(
-        "http://localhost:8000/signup",
+      const response = await api.post<SessionData>(
+        "/signup",
         data
       );
       setSession(response.data)
+      localStorage.setItem("token", response.data.token)
+      localStorage.setItem("session", JSON.stringify({
+        email: response.data.email,
+        username: response.data.username
+      }))
       return <Navigate to="/" replace />
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {

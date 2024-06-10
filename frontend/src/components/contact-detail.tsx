@@ -3,16 +3,9 @@ import { InputPersonalInformation } from "./input-personal-information";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
+import { Contact } from "./contact-list";
 
-type DetailsProps = {
-  url?: string;
-  name?: string;
-  number?: string;
-  email?: string;
-  dateOfBirth?: string;
-};
-
-export function ContactDetail(props: DetailsProps) {
+export function ContactDetail(props: Contact) {
   return (
     <SheetContent>
       <SheetHeader className="items-center gap-4">
@@ -20,7 +13,7 @@ export function ContactDetail(props: DetailsProps) {
 
         <Avatar className="size-20">
           <AvatarFallback>cn</AvatarFallback>
-          <AvatarImage src={props.url} />
+          <AvatarImage src={props.imageUrl} />
         </Avatar>
       </SheetHeader>
 
@@ -29,24 +22,27 @@ export function ContactDetail(props: DetailsProps) {
           id="name"
           title="Name"
           placeholder="John Doe"
+          value={props.name}
           typeInput="string"
         />
         <InputPersonalInformation
           id="email"
           title="Email"
           placeholder="john.doe@email.com"
+          value={props.email}
           typeInput="email"
         />
         <InputPersonalInformation
           id="number"
           title="Number"
           placeholder="999-9999-999"
+          value={props.number}
           typeInput="string"
         />
         <InputPersonalInformation
           id="dateBirth"
           title="Date of Birth"
-          placeholder=""
+          value={formatDate(props.dateOfBirth)}
           typeInput="date"
         />
       </div>
@@ -64,4 +60,13 @@ export function ContactDetail(props: DetailsProps) {
       </div>
     </SheetContent>
   );
+}
+
+function formatDate(date: string) {
+  const dateObject = new Date(date);
+  const year = dateObject.getFullYear();
+  const month = String(dateObject.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+  const day = String(dateObject.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
 }

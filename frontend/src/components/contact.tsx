@@ -1,19 +1,20 @@
+import type { Contact } from "./contact-list";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { SheetTrigger } from "./ui/sheet";
 
-type ContactProps = {
-  url: string;
-  name: string;
-  number: string;
-};
+// type ContactProps = {
+//   imageUrl: string;
+//   name: string;
+//   number: string;
+// };
 
-export function Contact(props: ContactProps) {
+export function Contact(props: Omit<Contact, "email" | "dateOfBirth">) {
   return (
     <SheetTrigger>
       <div className="flex items-center gap-4">
         <Avatar className="size-12">
           <AvatarFallback className="bg-purple-200">cn</AvatarFallback>
-          <AvatarImage src={props.url} />
+          <AvatarImage src={props.imageUrl} />
         </Avatar>
 
         <div className="flex flex-col text-start">

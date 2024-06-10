@@ -2,11 +2,11 @@ import { Card } from "@/components/card";
 import { InputPersonalInformation } from "@/components/input-personal-information";
 import { Button } from "@/components/ui/button";
 import { type SessionData } from "@/context/auth";
-import axios from "axios";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import image from "../assets/images/image-1.jpg";
 import { Navigate } from "react-router-dom";
 import { useSession } from "@/shared/session-provider";
+import { api } from "@/lib/api";
 
 interface Input {
   email: string;
@@ -19,11 +19,16 @@ export function Login() {
 
   const loginSubmit: SubmitHandler<Input> = async (data) => {
     try {
-      const res = await axios.post<SessionData>(
-        "http://localhost:8000/login",
+      const response = await api.post<SessionData>(
+        "/login",
         data
       );
-      setSession(res.data)
+      setSession(response.data)
+      localStorage.setItem("token", response.data.token)
+      localStorage.setItem("session", JSON.stringify({
+        email: response.data.email,
+        username: response.data.username
+      }))
       return <Navigate to="/" replace />
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {

@@ -9,9 +9,9 @@ type Props = {
 export const ProtectedRoute = ({
     children,
   }:Props) => {
-    const {session} = useSession()
+    const token = localStorage.getItem("token")
 
-    if (!session) {
+    if (!token) {
       return <Navigate to="/login" replace />;
     }
   
