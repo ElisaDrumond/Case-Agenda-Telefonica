@@ -7,7 +7,7 @@ import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface Input {
-    name: string,
+    username: string,
     email: string,
     password: string
 }
@@ -17,14 +17,13 @@ export function Register(){
     const {register, handleSubmit} = useForm<Input>()
 
     const registerSubmit: SubmitHandler<Input> = async (data) => {
-        // e.preventDefault();
-        // try {
-        //     const response = await axios.post('http://localhost:8000/signup', formData);
-        //     console.log('Registration successful:', response.data);
+        try {
+            const response = await axios.post('http://localhost:8000/signup', data);
+            console.log('Registration successful:', response.data);
            
-        // } catch (error: any) {
-        //     console.error('Registration failed:', error.response.data);
-        // }
+        } catch (error: any) {
+            console.error('Registration failed:', error.response.data);
+        }
         console.log('por facovr funcionandoan', data)
     };
 
@@ -43,7 +42,7 @@ export function Register(){
                             id="name" 
                             placeholder="John Doe" 
                             typeInput="input" 
-                            register = {register("name")}
+                            register = {register("username")}
                         />
 
                         <InputPersonalInformation 
