@@ -7,6 +7,7 @@ const root = document.getElementById("root");
 if (!root) {
   throw new Error();
 }
+
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <App />

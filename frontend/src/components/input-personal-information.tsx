@@ -6,6 +6,7 @@ type PersonalProps = {
     title: string;
     placeholder: string;
     typeInput: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function InputPersonalInformation(props: PersonalProps){
