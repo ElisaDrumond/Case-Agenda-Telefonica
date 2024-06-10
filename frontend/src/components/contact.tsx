@@ -11,7 +11,6 @@ export function Contact(props: ContactProps) {
   return (
     <SheetTrigger>
       <div className="flex items-center gap-4">
-
         <Avatar className="size-12">
           <AvatarFallback className="bg-purple-200">cn</AvatarFallback>
           <AvatarImage src={props.url} />
@@ -21,7 +20,6 @@ export function Contact(props: ContactProps) {
           <p className="text-xl font-bold">{props.name}</p>
           <p className="text-muted-foreground">{props.number}</p>
         </div>
-
       </div>
     </SheetTrigger>
   );
