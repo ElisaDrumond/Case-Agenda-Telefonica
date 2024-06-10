@@ -1,38 +1,33 @@
 import type React from "react";
 import { createContext, useContext, useState } from "react";
 
+export type SessionData = {
+  username: string;
+  email: string;
+  token: string;
+};
+
 type AuthContextType = {
-  isAuthenticated: boolean;
-  login: () => void;
-  logout: () => void;
+  session: SessionData;
+  setSession: React.Dispatch<React.SetStateAction<SessionData>>;
 };
 
-export const AuthContext = createContext<AuthContextType>({
-  isAuthenticated: false,
-  login: () => {},
-  logout: () => {}
-});
-
-export const useAuth = (): AuthContextType => {
-  return useContext(AuthContext);
-};
+export const AuthContext = createContext<AuthContextType>(
+  {} as AuthContextType
+);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const login = () => {
-    setIsAuthenticated(true);
-  };
-
-  const logout = () => {
-    setIsAuthenticated(false);
-  };
+  const [session, setSession] = useState<SessionData>({} as SessionData);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ session, setSession }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuth = (): AuthContextType => {
+  return useContext(AuthContext);
 };

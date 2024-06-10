@@ -1,26 +1,17 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home name={"John Doe"} />
-  },
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "/register",
-    element: <Register />
-  },
-  {
-    //inserir nested aq
-  }
-]);
+import { ProtectedRoute } from "./protected";
 
 export function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Routes>
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<Home />} />
+      </Route>
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  );
 }

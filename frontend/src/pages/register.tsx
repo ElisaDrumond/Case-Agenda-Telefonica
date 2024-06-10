@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import image from "../assets/images/image-2.jpg";
+import { useSession } from "@/shared/session-provider";
+import { SessionData } from "@/context/auth";
+import { Navigate } from "react-router-dom";
 
 interface Input {
   username: string;
@@ -13,17 +16,26 @@ interface Input {
 
 export function Register() {
   const { register, handleSubmit } = useForm<Input>();
+  const { session, setSession } = useSession();
 
   const registerSubmit: SubmitHandler<Input> = async (data) => {
     try {
-      const response = await axios.post("http://localhost:8000/signup", data);
-      console.log("Registration successful:", response.data);
+      const response = await axios.post<SessionData>(
+        "http://localhost:8000/signup",
+        data
+      );
+      setSession(response.data)
+      return <Navigate to="/" replace />
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {
       console.error("Registration failed:", error.response.data);
     }
     console.log("por facovr funcionandoan", data);
   };
+
+  if (session) {
+    return <Navigate to="/" replace />
+  }
 
   return (
     <main className="flex min-h-screen justify-center items-center py-4">
