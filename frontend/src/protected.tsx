@@ -1,19 +1,17 @@
+// biome-ignore lint/style/useImportType: <explanation>
 import { ReactNode } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useSession } from "./shared/session-provider";
 
 type Props = {
-    children?: ReactNode,
-}
+  children?: ReactNode;
+};
 
-export const ProtectedRoute = ({
-    children,
-  }:Props) => {
-    const token = localStorage.getItem("token")
+export const ProtectedRoute = ({ children }: Props) => {
+  const token = localStorage.getItem("token");
 
-    if (!token) {
-      return <Navigate to="/login" replace />;
-    }
-  
-    return children ? children : <Outlet />;
-  };
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children ? children : <Outlet />;
+};

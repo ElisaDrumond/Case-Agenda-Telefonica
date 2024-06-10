@@ -1,7 +1,8 @@
+// biome-ignore lint/style/useImportType: <explanation>
+import { ComponentProps } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { ComponentProps } from "react";
 
 type PersonalProps = {
   id: string;

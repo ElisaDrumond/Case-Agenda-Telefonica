@@ -1,12 +1,13 @@
 import { Card } from "@/components/card";
 import { InputPersonalInformation } from "@/components/input-personal-information";
 import { Button } from "@/components/ui/button";
+// biome-ignore lint/style/useImportType: <explanation>
 import { type SessionData } from "@/context/auth";
-import { type SubmitHandler, useForm } from "react-hook-form";
-import image from "../assets/images/image-1.jpg";
-import { Navigate } from "react-router-dom";
-import { useSession } from "@/shared/session-provider";
 import { api } from "@/lib/api";
+import { useSession } from "@/shared/session-provider";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { Navigate } from "react-router-dom";
+import image from "../assets/images/image-1.jpg";
 
 interface Input {
   email: string;
@@ -19,17 +20,17 @@ export function Login() {
 
   const loginSubmit: SubmitHandler<Input> = async (data) => {
     try {
-      const response = await api.post<SessionData>(
-        "/login",
-        data
+      const response = await api.post<SessionData>("/login", data);
+      setSession(response.data);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem(
+        "session",
+        JSON.stringify({
+          email: response.data.email,
+          username: response.data.username
+        })
       );
-      setSession(response.data)
-      localStorage.setItem("token", response.data.token)
-      localStorage.setItem("session", JSON.stringify({
-        email: response.data.email,
-        username: response.data.username
-      }))
-      return <Navigate to="/" replace />
+      return <Navigate to="/" replace />;
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {
       console.error("Registration failed:", error.response.data);
@@ -37,7 +38,7 @@ export function Login() {
   };
 
   if (session) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/" replace />;
   }
 
   return (

@@ -7,7 +7,6 @@ Content-Type: application/json
     "number": "+5521985015981",
     "email": "elisadrmnd@gmail.com",
     "dateOfBirth": "2001-07-23",
-    "image": "https://www.youtube.com/watch?v=dFFpjjD9cj4"
 }
 
 ### Get all contacts

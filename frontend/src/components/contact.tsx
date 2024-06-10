@@ -8,7 +8,8 @@ import { SheetTrigger } from "./ui/sheet";
 //   number: string;
 // };
 
-export function Contact(props: Omit<Contact, "email" | "dateOfBirth">) {
+// biome-ignore lint/suspicious/noRedeclare: <explanation>
+export function Contact(props: Omit<Contact, "email" | "dateOfBirth" | "_id">) {
   return (
     <SheetTrigger>
       <div className="flex items-center gap-4">
